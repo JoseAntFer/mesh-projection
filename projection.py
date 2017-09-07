@@ -75,7 +75,7 @@ def projectIfInside(T, a, xyz_fine, ball_idx, press, pres_fine, qzero, qone, clo
                 if (z > qzero):
                     # Check Plane
                     plane = 1 - x - y - z
-                    if plane < qone:
+                    if plane > qzero:
                         # Precompute squares
                         xx, yy, zz = x**2, y**2, z**2
                         
@@ -83,28 +83,28 @@ def projectIfInside(T, a, xyz_fine, ball_idx, press, pres_fine, qzero, qone, clo
                         da = sqrt( xx + yy + zz )
                         if da < close: 
                             pres_fine[idx] = press[0]
-                            break
+                            continue
                         da = 1/da
                         
                         # Distance to (1, 0, 0)
                         db = sqrt( (x-1)**2 + yy + zz )
                         if db < close: 
                             pres_fine[idx] = press[1]
-                            break
+                            continue
                         db = 1/db
         
                         # Distance to (0, 1, 0)
                         dc = sqrt( xx + (y-1)**2 + zz )
                         if dc < close: 
                             pres_fine[idx] = press[2]
-                            break
+                            continue
                         dc = 1/dc
         
                         # Distance to (0, 0, 1)
                         dd = sqrt( xx + yy + (z-1)**2 )
                         if dd < close: 
                             pres_fine[idx] = press[3]
-                            break
+                            continue
                         dd = 1/dd
                         
                         # Total
